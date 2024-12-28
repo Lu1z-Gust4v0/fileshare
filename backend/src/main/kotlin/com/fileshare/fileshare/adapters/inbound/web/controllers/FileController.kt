@@ -6,8 +6,8 @@ import com.fileshare.fileshare.application.services.FileService
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
+import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -18,7 +18,7 @@ class FileController(
     private val fileService: FileService
 ) {
     @PostMapping(consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
-    fun uploadFile(@RequestBody request: FileUploadRequest): ResponseEntity<FileUploadResponse> {
+    fun uploadFile(@ModelAttribute request: FileUploadRequest): ResponseEntity<FileUploadResponse> {
         fileService.uploadFile(request)
 
         return ResponseEntity.ok(FileUploadResponse(message = "File uploaded successfully", 200))
