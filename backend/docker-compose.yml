@@ -1,0 +1,12 @@
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./docker/postgres-multiple-database.sh:/docker-entrypoint-initdb.d/postgres-multiple-database.sh
+    hostname: file-share
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_MULTIPLE_DATABASES=file_share_db,file_share_db_test
