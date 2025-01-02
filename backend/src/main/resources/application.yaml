@@ -1,5 +1,5 @@
 spring:
   datasource:
-    url: ${JDBC_DATABASE_URL}
+    url: "jdbc:postgresql://localhost:5432/file_share_db_test?user=postgres&password=postgres"
   flyway:
     enabled: ${ENABLE_MIGRATION:false}
