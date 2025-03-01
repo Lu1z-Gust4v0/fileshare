@@ -1,6 +1,8 @@
 package com.fileshare.fileshare.adapters.outbound.persistance.entities
 
+import FileOwnershipEntity
 import jakarta.persistence.*
+import jakarta.persistence.FetchType.LAZY
 import java.time.ZonedDateTime
 import java.util.*
 
@@ -21,6 +23,6 @@ open class FileEntity {
     @Column(name = "uploaded_at", nullable = false)
     open var uploadedAt: ZonedDateTime = ZonedDateTime.now()
 
-    @ManyToMany(mappedBy = "files")
-    open var users: MutableCollection<UserEntity> = mutableListOf()
+    @OneToMany(mappedBy = "file", fetch = LAZY)
+    open var fileOwnership: MutableSet<FileOwnershipEntity> = mutableSetOf()
 }
