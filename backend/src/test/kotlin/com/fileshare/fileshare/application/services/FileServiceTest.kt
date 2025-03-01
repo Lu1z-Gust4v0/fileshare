@@ -1,7 +1,7 @@
 package com.fileshare.fileshare.application.services
 
 import com.fileshare.fileshare.adapters.inbound.web.controllers.requests.FileUploadRequest
-import com.fileshare.fileshare.adapters.outbound.persistance.FileJPAPersistence
+import com.fileshare.fileshare.adapters.outbound.persistance.FilePersistence
 import com.fileshare.fileshare.exceptions.ServiceException
 import io.mockk.every
 import io.mockk.mockk
@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile
 @Transactional
 @TestInstance(Lifecycle.PER_CLASS)
 class FileServiceTest {
-    private val filePersistance: FileJPAPersistence = mockk(relaxed = true)
+    private val filePersistance: FilePersistence = mockk(relaxed = true)
 
     private val fileService = FileService(
         filePersistance = filePersistance

@@ -1,6 +1,6 @@
 package com.fileshare.fileshare.adapters.outbound.repositories
 
-import com.fileshare.fileshare.adapters.outbound.persistance.FileJPAPersistence
+import com.fileshare.fileshare.adapters.outbound.persistance.FilePersistence
 import com.fileshare.fileshare.adapters.outbound.persistance.repositories.FileRepository
 import com.fileshare.fileshare.domain.file.File
 import jakarta.transaction.Transactional
@@ -21,7 +21,7 @@ class FilePersistanceTest {
     private lateinit var fileRepository: FileRepository
 
     @Autowired
-    private lateinit var filePersistance: FileJPAPersistence
+    private lateinit var filePersistance: FilePersistence
 
     @AfterAll
     fun clearDatabase() {

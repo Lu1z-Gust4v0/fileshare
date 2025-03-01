@@ -1,7 +1,7 @@
 package com.fileshare.fileshare.application.services
 
 import com.fileshare.fileshare.adapters.inbound.web.controllers.requests.FileUploadRequest
-import com.fileshare.fileshare.adapters.outbound.persistance.FileJPAPersistence
+import com.fileshare.fileshare.adapters.outbound.persistance.FilePersistence
 import com.fileshare.fileshare.exceptions.ServiceException
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -13,7 +13,7 @@ import java.lang.System.currentTimeMillis
 @Service
 class FileService(
     private val maxFileSize: String = "50MB",
-    private val filePersistance: FileJPAPersistence
+    private val filePersistance: FilePersistence
 ) {
     fun uploadFile(request: FileUploadRequest) {
         if (request.file.size > DataSize.parse(maxFileSize).toBytes()) {

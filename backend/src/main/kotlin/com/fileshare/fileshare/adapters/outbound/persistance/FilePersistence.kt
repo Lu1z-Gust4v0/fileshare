@@ -4,9 +4,10 @@ import com.fileshare.fileshare.adapters.outbound.persistance.entities.FileEntity
 import com.fileshare.fileshare.adapters.outbound.persistance.repositories.FileRepository
 import com.fileshare.fileshare.domain.file.File
 import org.springframework.stereotype.Repository
+import kotlin.jvm.optionals.getOrNull
 
 @Repository
-class FileJPAPersistence(
+class FilePersistence(
     private val fileRepository: FileRepository
 ) {
     fun create(
@@ -18,4 +19,6 @@ class FileJPAPersistence(
             uploadedAt = file.uploadedAt
         }
     )
+
+    fun findById(id: Long) = fileRepository.findById(id).getOrNull()?.toDomain()
 }
