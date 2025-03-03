@@ -1,12 +1,15 @@
 package com.fileshare.fileshare.adapters.outbound.persistance.entities
 
-import FileOwnershipEntity
 import com.fileshare.fileshare.domain.user.User
-import jakarta.persistence.*
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
 import jakarta.persistence.FetchType.LAZY
-import org.springframework.data.jpa.domain.AbstractPersistable_.id
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.OneToMany
+import jakarta.persistence.Table
 import java.time.ZonedDateTime
-import java.util.*
 
 @Entity
 @Table(name = "users")

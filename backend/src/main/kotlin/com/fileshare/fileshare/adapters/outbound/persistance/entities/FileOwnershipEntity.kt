@@ -1,9 +1,8 @@
-import com.fileshare.fileshare.adapters.outbound.persistance.entities.FileEntity
-import com.fileshare.fileshare.adapters.outbound.persistance.entities.UserEntity
+package com.fileshare.fileshare.adapters.outbound.persistance.entities
+
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType.EAGER
-import jakarta.persistence.FetchType.LAZY
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType.IDENTITY
 import jakarta.persistence.Id

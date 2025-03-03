@@ -1,4 +1,8 @@
+package com.fileshare.fileshare.adapters.inbound.web.controllers
+
+import com.fileshare.fileshare.adapters.inbound.web.controllers.requests.CreateUserRequest
 import com.fileshare.fileshare.adapters.inbound.web.controllers.responses.CreateUserResponse
+import com.fileshare.fileshare.application.services.UserService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
@@ -15,11 +19,11 @@ class UserController(
 ) {
     @PostMapping
     fun createUser(@RequestBody request: CreateUserRequest): ResponseEntity<CreateUserResponse> {
-       val user = userService.createUser(request)
+        val user = userService.createUser(request)
 
-       return ResponseEntity(
-           CreateUserResponse(message = "User created successfully", code = 201, user = user.copy(password = null)),
-           HttpStatus.CREATED
-       )
+        return ResponseEntity(
+            CreateUserResponse(message = "User created successfully", code = 201, user = user.copy(password = null)),
+            HttpStatus.CREATED
+        )
     }
 }

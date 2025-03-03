@@ -1,3 +1,5 @@
+package com.fileshare.fileshare.adapters.outbound.persistance
+
 import com.fileshare.fileshare.adapters.outbound.persistance.entities.UserEntity
 import com.fileshare.fileshare.adapters.outbound.persistance.repositories.UserRepository
 import com.fileshare.fileshare.domain.user.User
