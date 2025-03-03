@@ -16,6 +16,6 @@ class UserService(
             throw ServiceException("Email already in use", BAD_REQUEST)
         }
 
-        return userPersistance.create(request.fromDomain()).toDomain()
+        return userPersistance.create(request.toDomain()).toDomain()
     }
 }

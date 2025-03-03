@@ -7,7 +7,7 @@ data class CreateUserRequest(
     val email: String,
     val password: String,
 ) {
-    fun fromDomain() = User(
+    fun toDomain() = User(
         name = name,
         email = email,
         password = password
