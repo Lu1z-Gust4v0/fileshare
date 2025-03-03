@@ -10,15 +10,7 @@ import kotlin.jvm.optionals.getOrNull
 class FilePersistence(
     private val fileRepository: FileRepository
 ) {
-    fun create(
-        file: File
-    ): FileEntity = fileRepository.save(
-        FileEntity().apply {
-            fileName = file.fileName
-            fileKey = file.fileKey
-            uploadedAt = file.uploadedAt
-        }
-    )
+    fun create(file: File) = fileRepository.save(FileEntity.fromDomain(file))
 
     fun findById(id: Long) = fileRepository.findById(id).getOrNull()?.toDomain()
 }

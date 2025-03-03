@@ -16,6 +16,9 @@ open class UserEntity {
     @Column(name = "user_id", nullable = false)
     open var id: Long? = null
 
+    @Column(name = "name", nullable = false)
+    open var name: String? = null
+
     @Column(name = "email", nullable = false)
     open var email: String? = null
 
@@ -28,17 +31,21 @@ open class UserEntity {
     @OneToMany(mappedBy = "user", fetch = LAZY)
     open var fileOwnership: MutableSet<FileOwnershipEntity> = mutableSetOf()
 
-    fun fromDomain(user: User) = UserEntity().apply {
-        id = user.id
-        email = user.email
-        password = user.password
-        createdAt = user.createdAt
-    }
-
     fun toDomain() = User(
         id = this.id,
+        name = this.name.toString(),
         email = this.email.toString(),
         password = this.password.toString(),
         createdAt = this.createdAt,
     )
+
+    companion object {
+        fun fromDomain(user: User) = UserEntity().apply {
+            id = user.id
+            name = user.name
+            email = user.email
+            password = user.password
+            createdAt = user.createdAt
+        }
+    }
 }

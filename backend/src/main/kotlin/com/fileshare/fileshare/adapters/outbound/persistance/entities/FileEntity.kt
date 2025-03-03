@@ -28,17 +28,20 @@ open class FileEntity {
     @OneToMany(mappedBy = "file", fetch = LAZY)
     open var fileOwnership: MutableSet<FileOwnershipEntity> = mutableSetOf()
 
-    fun fromDomain(file: File) = FileEntity().apply {
-        id = file.id
-        fileName = file.fileName
-        fileKey = file.fileKey
-        uploadedAt = file.uploadedAt
-    }
-
     fun toDomain() = File(
         id = this.id,
         fileName = this.fileName.toString(),
         fileKey = this.fileKey.toString(),
         uploadedAt = this.uploadedAt
     )
+
+    companion object {
+        fun fromDomain(file: File) = FileEntity().apply {
+            id = file.id
+            fileName = file.fileName
+            fileKey = file.fileKey
+            uploadedAt = file.uploadedAt
+        }
+    }
+
 }
