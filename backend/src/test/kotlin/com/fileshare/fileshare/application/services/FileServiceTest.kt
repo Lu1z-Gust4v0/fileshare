@@ -2,6 +2,7 @@ package com.fileshare.fileshare.application.services
 
 import com.fileshare.fileshare.adapters.inbound.web.controllers.requests.FileUploadRequest
 import com.fileshare.fileshare.adapters.outbound.persistance.FilePersistence
+import com.fileshare.fileshare.application.usecases.AttachFileToUserUseCase
 import com.fileshare.fileshare.exceptions.ServiceException
 import io.mockk.every
 import io.mockk.mockk
@@ -20,9 +21,11 @@ import org.springframework.web.multipart.MultipartFile
 @TestInstance(Lifecycle.PER_CLASS)
 class FileServiceTest {
     private val filePersistance: FilePersistence = mockk(relaxed = true)
+    private val attachFileToUserUseCase: AttachFileToUserUseCase = mockk(relaxed = true)
 
     private val fileService = FileService(
-        filePersistance = filePersistance
+        filePersistance = filePersistance,
+        attachFileToUserUseCase = attachFileToUserUseCase
     )
 
     private val MEGABYTE: Long = 1024 * 1024
@@ -51,7 +54,7 @@ class FileServiceTest {
     @Test
     fun `Should accept and create a valid file`() {
         // Arrange / Act
-        fileService.uploadFile(FileUploadRequest(validMockFile))
+        fileService.uploadFile(FileUploadRequest(validMockFile, 1))
         // Assert
         verify {
             filePersistance.create(any())
@@ -62,7 +65,7 @@ class FileServiceTest {
     fun `Should throw an exception if file format is invalid`() {
         // Arrange / Act
         assertThrows<ServiceException>("File must be PDF, PNG or JPEG!") {
-            fileService.uploadFile(FileUploadRequest(invalidFormatMockFile))
+            fileService.uploadFile(FileUploadRequest(invalidFormatMockFile, 1))
         }
     }
 
@@ -70,7 +73,7 @@ class FileServiceTest {
     fun `Should throw an exception if file size is greater than limit`() {
         // Arrange / Act
         assertThrows<ServiceException>("File is too big") {
-            fileService.uploadFile(FileUploadRequest(invalidSizeMockFile))
+            fileService.uploadFile(FileUploadRequest(invalidSizeMockFile, 1))
         }
     }
 }

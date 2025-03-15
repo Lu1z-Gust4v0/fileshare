@@ -2,6 +2,7 @@ package com.fileshare.fileshare.application.services
 
 import com.fileshare.fileshare.adapters.inbound.web.controllers.requests.FileUploadRequest
 import com.fileshare.fileshare.adapters.outbound.persistance.FilePersistence
+import com.fileshare.fileshare.application.usecases.AttachFileToUserUseCase
 import com.fileshare.fileshare.exceptions.ServiceException
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -13,7 +14,8 @@ import java.lang.System.currentTimeMillis
 @Service
 class FileService(
     private val maxFileSize: String = "50MB",
-    private val filePersistance: FilePersistence
+    private val filePersistance: FilePersistence,
+    private val attachFileToUserUseCase: AttachFileToUserUseCase
 ) {
     fun uploadFile(request: FileUploadRequest) {
         if (request.file.size > DataSize.parse(maxFileSize).toBytes()) {
@@ -22,7 +24,14 @@ class FileService(
 
         val fileName = "${currentTimeMillis()}.${getExtension(request.file)}"
 
-        filePersistance.create(request.toDomain(fileName))
+        val file = filePersistance.create(request.toDomain(fileName)).toDomain()
+
+        if (file.id == null) throw ServiceException(
+            message = "failed to create file",
+            status = HttpStatus.INTERNAL_SERVER_ERROR
+        )
+
+        attachFileToUserUseCase.perform(request.userId, file.id)
     }
 
     private fun getExtension(file: MultipartFile): String =

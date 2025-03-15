@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile
 
 data class FileUploadRequest(
     val file: MultipartFile,
+    val userId: Long
 ) {
     fun toDomain(fileName: String): File {
         return File(
